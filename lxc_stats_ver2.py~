@@ -20,10 +20,10 @@ hdp11_memory_location = '/sys/fs/cgroup/memory/lxc/hadoop11/memory.usage_in_byte
 hdp21_memory_location = '/sys/fs/cgroup/memory/lxc/hadoop21/memory.usage_in_bytes'
 tot_memory_location = '/sys/fs/cgroup/memory/memory.usage_in_bytes'
 #NETWORK LOCATIONS
-hdp11_net_rx_location = '/sys/class/net/veth2HNOQ0/statistics/rx_bytes'
-hdp11_net_tx_location = '/sys/class/net/veth2HNOQ0/statistics/tx_bytes'
-hdp21_net_rx_location = '/sys/class/net/vethXTQ4WI/statistics/rx_bytes'
-hdp21_net_tx_location = '/sys/class/net/vethXTQ4WI/statistics/tx_bytes'
+hdp11_net_rx_location = '/sys/class/net/vethIINB1E/statistics/rx_bytes'
+hdp11_net_tx_location = '/sys/class/net/vethIINB1E/statistics/tx_bytes'
+hdp21_net_rx_location = '/sys/class/net/vethLQ405R/statistics/rx_bytes'
+hdp21_net_tx_location = '/sys/class/net/vethLQ405R/statistics/tx_bytes'
 #######################################################################
 def get_percpu_usage():
  percpu_usage = []

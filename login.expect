@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set timeout 10
+set container ubuntu@[lindex $argv 0]
+
+spawn ssh ubuntu@[lindex $argv 0]
+#spawn ssh ubuntu@[lindex $argv 1]
+
+
+
+#login as root
+expect "*:~?*" { send "/home/ubuntu/intel-hadoop-HiBench-4aa2ffa/bin/run-all.sh\r" }
+
+
+interact
+
+
