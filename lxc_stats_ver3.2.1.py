@@ -9,7 +9,7 @@ import tty
 import getopt
 from select import select
 from datetime import datetime,timedelta
-
+import multiprocessing
 #http://code.activestate.com/recipes/203830-checking-for-a-keypress-without-stop-the-execution/history/3/
 class NotTTYException(Exception): pass
 
@@ -41,6 +41,8 @@ class TerminalFile:
 #list2 = ['Epoch time', 'CPU_USG_HDP11', 'CPU_USG_HDP21','CPU_TOT', 'BLKIO_HDP11_READ', 'BLKIO_HDP11_WRITE','BLKIO_TOTAL','BLKIO_HDP21_READ', 'BLKIO_HDP21_WRITE', 'MEM_HDP11', 'MEM_HDP21','MEM_TOT','RX_HDP11', 'TX_HDP11', 'RX_HDP21', 'TX_HDP21', 'CPU_USG_CPU1', 'CPU_USG_CPU2']
 ########################################################################
 #INTERVAL =1 
+#Number of virtual cores
+NUM_CORES = 4
 # Connection info 
 TCP_PORT = 5005
 BUFFER_SIZE = 50
@@ -60,7 +62,10 @@ memory_location = '/sys/fs/cgroup/memory/lxc/'
 tot_memory_location = '/sys/fs/cgroup/memory/memory.usage_in_bytes'
 ###################################################
 def usage():
+ print "This script collects container statistics and power data for a list of containers. Update the list of containers in cluster_config.txt in         the same folder as the script(one container name per line). \n "
  print "./lxc_stats_ver3.2.py -i <IP Address of beaglebone> -o <Name of output folder -a> -t <Time interval>\n"
+ print " Use -f for only collecting container statistics..\n"
+ print "./lxc_stats_ver3.2.1.py -t <Time interval> -f -o <Name of output folder>"
 
 ######################################################################
 #Check if container exists/is started
@@ -80,12 +85,13 @@ def get_virtual_interface(container_name):
  
 ##################################################################
 def get_percpu_usage():
+ CORES_PERCPU = NUM_CORES/2
  percpu_usage = []
  f = open(tot_percpu_location)
  list1 = f.read().strip().split()
  map(int,list1)
- list_cpu1 = list1[:16]
- list_cpu2 = list1[16:]
+ list_cpu1 = list1[:int(CORES_PERCPU)]
+ list_cpu2 = list1[int(CORES_PERCPU):]
  sum_cpu1 = reduce(lambda x,y : x+y, map(int,list_cpu1))
  sum_cpu2 = reduce(lambda x,y : x+y, map(int,list_cpu2))
  percpu_usage.append(sum_cpu1)
@@ -167,15 +173,18 @@ def main():
  fldr_name = ' '
  TCP_IP = '10.16.30.11' # Default IP address 
  INTERVAL = 15
+ #Set Number of Virtual cores
+ global NUM_CORES
+ NUM_CORES = multiprocessing.cpu_count()
  # Process flags
  try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:i:at: ")
+        opts, args = getopt.getopt(sys.argv[1:], "ho:i:ft: ")
  except getopt.GetoptError as err:
         # print help information and exit:
         print str(err) # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
- ALL = False 
+ ALL = True 
  for o,a in opts:
   if o == "-i":
             TCP_IP = a
@@ -184,8 +193,8 @@ def main():
             sys.exit()
   elif o in ("-o"):
             fldr_name = a
-  elif o in ("-a"):
-            ALL = True
+  elif o in ("-f"):
+            ALL = False 
   elif o in ("-t"):
             INTERVAL = int(a)           #Handle exception
   else:
@@ -201,24 +210,26 @@ def main():
  except IOError:
      print 'Could not find cluster_config.txt in current directory.'
      sys.exit(1)
- #Connect to server
- print 'Connecting to server..'
+ 
+ if ALL == True: 
+  #Connect to server
+  print 'Connecting to server..'
 
- #Check format of IP address
- try:
+  #Check format of IP address
+  try:
      socket.inet_aton(TCP_IP)
- except socket.error:
+  except socket.error:
      print "Check IP address\n"
      sys.exit(1)
  
- try :
+  try :
      so = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
      so.connect((TCP_IP, TCP_PORT))
- except socket.error as err :
+  except socket.error as err :
      print "Could not connect to server"
      print str(err)
      sys.exit(1)
- print 'Connection established'
+  print 'Connection established'
  stats_print =[]
  
 
@@ -234,15 +245,16 @@ def main():
   
  os.makedirs('./history/'+ fldr_name)
  # Make file to write power measurements
- f_pwr = open(os.path.join('./history/',fldr_name,'pwr.txt'),"a")
+ if ALL == True:
+  f_pwr = open(os.path.join('./history/',fldr_name,'pwr.txt'),"a")
 
  #Get stats for each container
  s=TerminalFile(sys.stdin)
  print "Press q to quit..."
  #Get start time
  datestart = datetime.now()
-
- while s.getch()!="q":
+ if ALL == True:
+  while s.getch()!="q":
    #Get timestamp - datetime
    #datenow = datetime.now()
    #time_elapsed = datenow - datestart
@@ -267,8 +279,27 @@ def main():
       container_file.write('\n')
    time.sleep(INTERVAL)
    #print str(time_elapsed.seconds)
- print '--END--'
-   
+  print '--END--'
+ else :
+  while s.getch()!="q":
+   datenow = datetime.now()
+   time_elapsed = datenow - datestart
+
+   for container in open('cluster_config.txt'):
+    stats_print =[]
+    with open(os.path.join('./history/',fldr_name,container.strip()+'.txt'),"a") as container_file:
+      stats_print.append(str(datenow))
+      stats_print.append(str(time_elapsed.seconds))
+      raw_stats = getstats(container.strip())
+      #print container
+      stats_print.extend(raw_stats)
+      stats_str = ','.join(map(str,stats_print))
+      container_file.write(stats_str)
+      container_file.write('\n')
+   time.sleep(INTERVAL)
+   #print str(time_elapsed.seconds)
+  print '--END--'
+  
 
 
 if __name__ == "__main__":main()
