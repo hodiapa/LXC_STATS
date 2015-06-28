@@ -184,7 +184,7 @@ $~/spark-1.1.0-bin-hadoop1/bin/spark-submit --class "SimpleApp" --master spark:/
 Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
 =================================================================
 
-1.  Create a container based Hadoop cluster using lxcdeploy:
+* Create a container based Hadoop cluster using lxcdeploy:
 
     Clone the repository LXC_STATS from GitHub
 
@@ -198,30 +198,30 @@ This will create containers named Cluster-Name1, Cluster-Name2....Cluster-Name\<
 The first container is the hadoop namenode and secondary namenode. The rest are
 hadoop slaves.
 
-2. You may wish to configure your container to run on certain cores. This can be done with
+* You may wish to configure your container to run on certain cores. This can be done with
 the lxc-cgroup command.
 
 $lxc-cgroup -n \<ContainerName\> cpuset.cpus 0-15
 
-3. cd ..
+* cd ..
 
-4. On the first container of the cluster download HiBench 2.2. After untarring it, edit
+* On the first container of the cluster download HiBench 2.2. After untarring it, edit
 bin/hibench-config.sh to point HADOOP_HOME to your hadoop directory which lxcde-
 ploy installs in your home directory. Edit the file conf/benchmarks.lst to choose the
 benchmarks to be executed and HiBench using the script bin/run-all.sh
 
-5. Start the data server on the Beaglebone (Pyserver.py)
+* Start the data server on the Beaglebone (Pyserver.py)
 
-6. Start the hadoop daemons by running start-all.sh on the first container
+* Start the hadoop daemons by running start-all.sh on the first container
 
-7. Run the script LXC_STATS/lxc_stats_ver3.2.1.py
+* Run the script LXC_STATS/lxc_stats_ver3.2.1.py
 
    $./lxc_stat_ver3.2.1.py -o \<output folder\> -t \<time interval in seconds\> -i \<ip address of beaglebone\>
    
    The script will connect to the data server on the Beaglebone and start collecting performance and power   
    measurements.
    
-8. When the Hadoop job terminates stop the script by pressing q.
+* When the Hadoop job terminates stop the script by pressing q.
 
 
 Sample Results for HiBench 2.2 Sort workload :
