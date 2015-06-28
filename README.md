@@ -1,5 +1,5 @@
-LXC_STATS
-=========
+##LXC_STATS
+
 * ./lxc_stats_ver3.2.1.py -h
 
 Collects container statistics and power data for a list of containers over the specified time interval.
@@ -20,8 +20,8 @@ Pass -f to collect only container statistics.
 
 ./lxc_stats_ver3.2.1.py -t \<Time interval\> -f -o \<Name of output folder\>
 
-lxcdeploy:
-=========
+## lxcdeploy:
+
 
 lxcdeploy contains scripts to setup a spark + hadoop cluster on LXC containers.  
 
@@ -183,8 +183,8 @@ $~/spark-1.1.0-bin-hadoop1/bin/spark-submit --class "SimpleApp" --master spark:/
 
 
 
-Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
-=================================================================
+## Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
+
 
 * Create a container based Hadoop cluster using lxcdeploy:
 
@@ -226,8 +226,8 @@ benchmarks to be executed and HiBench using the script bin/run-all.sh
 * When the Hadoop job terminates stop the script by pressing q.
 
 
-Sample Results for HiBench 2.2 Sort workload :
-=============================================
+##Sample Results for HiBench 2.2 Sort workload :
+
 
 #####CPU Utilization Vs CPU Power Consumption:
 
