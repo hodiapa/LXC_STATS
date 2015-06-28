@@ -1,0 +1,41 @@
+
+--Fix bug in script
+chown -R ubuntu ~/hadoop-1.0.4
+
+--aliases for .bashrc
+alias gohome='cd ~'
+alias golxc='cd ~/lxc_scripts'
+alias container1='./lxc-login.sh container1'
+alias lxclist='head /var/lib/misc/dnsmasq.leases'
+
+
+
+--git notes
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/pbprasad99/Test
+git push -u origin master
+(push existing repo)
+git remote add origin https://github.com/pbprasad99/Test
+git push -u origin master
+
+
+--setup passwordless ssh between master and slaves
+
+on master --> ssh-keygen -t rsa 
+ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@container1
+
+
+
+--scp
+
+scp ~/hdf-site.xml ubuntu@containername:~/hadoop-1.0.4/conf
+scp ~/core-site.xml ubuntu@containername:~/hadoop-1.0.4/conf
+
+--lxc clone: C2 is a clone of C1
+
+sudo lxc-clone -o C1 -n C2
+
+

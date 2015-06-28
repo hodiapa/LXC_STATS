@@ -1,0 +1,48 @@
+# For oracle jdk
+#!/usr/bin/expect -f
+
+set timeout 300
+
+
+spawn ssh ubuntu@[lindex $argv 0]
+#spawn ssh ubuntu@[lindex $argv 1]
+
+expect "*?/no?" {
+    send "yes\r"
+    expect "*?assword:" { send "ubuntu\r" }
+    } "*?assword:" { send "ubuntu\r" }
+
+#login as root
+expect "*:~?*" { send "sudo -s\r" }
+expect "*untu:" { send "ubuntu\r" }
+
+
+#install package
+#expect "*?#" { send "apt-get install software-properties-common\r" }
+#expect "*?n]?" { send "Y\r"}
+expect "*?#" { send "apt-get install software-properties-common\r" }
+expect "*?n]?" {
+   send "Y\r" 
+   } "*?#" { send  "\r" }
+
+expect "*?#" { send "add-apt-repository ppa:webupd8team/java\r" }
+#add repository
+expect "*it*" {
+  send "\r"
+ } "*?#" { send "\r" }
+
+expect  "*?#" { send "apt-get update\r" }
+expect "*?#" { send "exit\r"
+               send "exit\r"
+             }
+
+
+#expect "*?#" { send "apt-get install oracle-java7-installer\r" }
+#expect "*" { send "Y\r" }
+#expect "*" { send "\r"}
+#expect "*" { send "^[\[D" }
+#expect "*" { send "\r"}
+
+#interact
+
+

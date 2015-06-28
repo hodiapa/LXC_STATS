@@ -1,0 +1,29 @@
+#!/usr/bin/expect -f
+
+set timeout 10
+set container ubuntu@[lindex $argv 0]
+set data_node_number [lindex $argv 1]
+spawn ssh ubuntu@[lindex $argv 0]
+expect "*?/no?" {
+    send "yes\r"
+    expect "*?assword:" { send "ubuntu\r" }
+
+    } "*?assword:" { send "ubuntu\r" } 
+
+puts "\n-----------------------------"
+puts "Logged into $container"
+puts "-------------------------------\n"
+
+#login as root
+expect "*$ " { send "sudo -s\r" }
+expect "*untu:" { send "ubuntu\r" }
+expect "#" {send "chown -R ubuntu /home/ubuntu/hadoop-1.0.4\n"}
+#
+#interact 
+expect "#" { send "exit\r" }
+expect "$ " { send "exit\r" }
+
+
+
+
+

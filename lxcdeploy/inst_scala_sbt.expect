@@ -1,0 +1,35 @@
+#!/usr/bin/expect -f
+
+set timeout 10
+set container ubuntu@[lindex $argv 0]
+
+spawn ssh ubuntu@[lindex $argv 0]
+#spawn ssh ubuntu@[lindex $argv 1]
+
+expect "*?/no?" {
+    send "yes\r"
+    expect "*?assword:" { send "ubuntu\r" }
+
+    } "*?assword:" { send "ubuntu\r" } 
+
+#puts $expect_out(buffer)
+
+#login as root
+expect "*:~?*" { send "sudo -s\r" }
+expect "*untu:" { send "ubuntu\r" }
+
+
+puts "\n-----------------------------"
+puts "Installing scala and sbt on $container"
+puts "-------------------------------\n"
+
+expect "#" { send "wget http://www.scala-lang.org/files/archive/scala-2.10.4.tgz && tar -xvf scala-2.10.4.tgz && cd scala-2.10.4 && export PATH=`pwd`/bin:\$PATH && export SCALA_HOME=`pwd`\r"}
+expect "#" { send "echo export PATH=`pwd`/bin:\$PATH >> ~/.bashrc\r"}
+expect "#" { send "echo export SCALA_HOME=`pwd` >> ~/.bashrc\r" }
+expect "#" { send "wget https://dl.bintray.com/sbt/debian/sbt-0.13.6.deb\r" }
+expect "#" { send "dpkg -i sbt-0.13.6.deb\r" }
+expect "#" { send "exit\r"
+             send "exit\r" }
+#interact
+
+
