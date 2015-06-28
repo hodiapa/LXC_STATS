@@ -184,14 +184,15 @@ $~/spark-1.1.0-bin-hadoop1/bin/spark-submit --class "SimpleApp" --master spark:/
 Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
 =================================================================
 
-1. Create a container based Hadoop cluster using lxcdeploy:
-Clone the repository LXC_STATS from GitHub
+1.  Create a container based Hadoop cluster using lxcdeploy:
 
-$git clone https://github.com/pbprasad99/LXC_STATS
+    Clone the repository LXC_STATS from GitHub
 
-cd to lxcdeply and run the script to deploy the cluster
+    $git clone https://github.com/pbprasad99/LXC_STATS
 
-$./make-cluster.py -n \<ClusterName\> -w \<number of workers (N)\>
+    cd to lxcdeply and run the script to deploy the cluster
+
+    $./make-cluster.py -n \<ClusterName\> -w \<number of workers (N)\>
 
 This will create containers named Cluster-Name1, Cluster-Name2....Cluster-Name\<w+2\>
 The first container is the hadoop namenode and secondary namenode. The rest are
@@ -215,8 +216,12 @@ benchmarks to be executed and HiBench using the script bin/run-all.sh
 
 7. Run the script LXC_STATS/lxc_stats_ver3.2.1.py
 
-$./lxc_stat_ver3.2.1.py -o \<output folder\> -t \<time interval in seconds\> -i \<ip address of beaglebone\>
-
+   $./lxc_stat_ver3.2.1.py -o \<output folder\> -t \<time interval in seconds\> -i \<ip address of beaglebone\>
+   
+   The script will connect to the data server on the Beaglebone and start collecting performance and power   
+   measurements.
+   
+8. When the Hadoop job terminates stop the script by pressing q.
 
 
 Sample Results for HiBench 2.2 Sort workload :
