@@ -196,9 +196,8 @@ Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
 
     $./make-cluster.py -n \<ClusterName\> -w \<number of workers (N)\>
 
-This will create containers named Cluster-Name1, Cluster-Name2....Cluster-Name\<w+2\>
-The first container is the hadoop namenode and secondary namenode. The rest are
-hadoop slaves.
+    This will create containers named Cluster-Name1, Cluster-Name2....Cluster-Name\<w+2\>
+    The first container is the hadoop namenode and secondary namenode. The rest are hadoop slaves.
 
 * You may wish to configure your container to run on certain cores. This can be done with
 the lxc-cgroup command.
