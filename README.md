@@ -1,6 +1,6 @@
 LXC_STATS
 =========
-./lxc_stats_ver3.2.1.py -h
+* ./lxc_stats_ver3.2.1.py -h
 
 Collects container statistics and power data for a list of containers over the specified time interval.
 
@@ -12,11 +12,11 @@ The script connects with a BeagleBone based embedded system instrumented in the 
 
 Pass -f to collect only container statistics.
 
- For collecting container statistics and power data:
+* For collecting container statistics and power data:
 
 ./lxc_stats_ver3.2.py -i \<IP Address of beaglebone\> -o \<Name of output folder -a\> -t \<Time interval\>
 
- Use -f for only collecting container statistics:
+* Use -f for only collecting container statistics:
 
 ./lxc_stats_ver3.2.1.py -t \<Time interval\> -f -o \<Name of output folder\>
 
