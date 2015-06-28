@@ -229,19 +229,19 @@ benchmarks to be executed and HiBench using the script bin/run-all.sh
 Sample Results for HiBench 2.2 Sort workload :
 =============================================
 
-CPU Utilization Vs CPU Power Consumption:
+#####CPU Utilization Vs CPU Power Consumption:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/CPU.png "CPU Utilization Vs CPU Power Consumption")
 
-Disk I/O vs Power Consumption:
+#####Disk I/O vs Power Consumption:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Disk.png "Disk I/O vs Disk Power Consumption")
 
-Memory Consumption vs Power:
+#####Memory Consumption vs Power:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Memory.png "Memory Consumption vs Power")
 
-Network Traffic:
+#####Network Traffic:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Network.png "Memory Consumption vs Power")
 
