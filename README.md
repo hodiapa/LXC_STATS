@@ -52,7 +52,7 @@ lxc-login.sh : Logs in to a container.
 
 
 -------------------------------------------------------------------------------
-Usage :
+######Usage :
 
 To set up a cluster with spark and hadoop, cd to lxcdeploy and run
 
@@ -70,7 +70,7 @@ It also has scala + sbt installed on it. So use the base container for compiling
 
 --------------------------------------------------------------------------------
 
--->Running SimpleApp.scala on from spark quickstart guide (http://spark.apache.org/docs/latest/quick-start.html) on a cluster:
+######Running SimpleApp.scala on from spark quickstart guide (http://spark.apache.org/docs/latest/quick-start.html) on a cluster:
 
 ->Create the cluster:
 
