@@ -186,16 +186,20 @@ Procedure to use lxc_stats to characterize HIbench 2.2 workloads:
 
 1. Create a container based Hadoop cluster using lxcdeploy:
 Clone the repository LXC_STATS from GitHub
+
 $git clone https://github.com/pbprasad99/LXC_STATS
+
 cd to lxcdeply and run the script to deploy the cluster
 
 $./make-cluster.py -n \<ClusterName\> -w \<number of workers (N)\>
+
 This will create containers named Cluster-Name1, Cluster-Name2....Cluster-Name\<w+2\>
 The first container is the hadoop namenode and secondary namenode. The rest are
 hadoop slaves.
 
 2. You may wish to configure your container to run on certain cores. This can be done with
 the lxc-cgroup command.
+
 $lxc-cgroup -n \<ContainerName\> cpuset.cpus 0-15
 
 3. cd ..
@@ -210,5 +214,30 @@ benchmarks to be executed and HiBench using the script bin/run-all.sh
 6. Start the hadoop daemons by running start-all.sh on the first container
 
 7. Run the script LXC_STATS/lxc_stats_ver3.2.1.py
+
 $./lxc_stat_ver3.2.1.py -o \<output folder\> -t \<time interval in seconds\> -i \<ip address of beaglebone\>
+
+
+
+Sample Results for HiBench 2.2 Sort workload :
+=============================================
+
+CPU Utilization Vs CPU Power Consumption:
+
+![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/CPU.png "CPU Utilization Vs CPU Power Consumption")
+
+Disk I/O vs Disk Power Consumption:
+
+![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Disk.png "Disk I/O vs Disk Power Consumption")
+
+Memory Consumption vs Power:
+
+![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Memory.png "Memory Consumption vs Power")
+
+Network Traffic:
+
+![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Network.png "Memory Consumption vs Power")
+
+
+
 
