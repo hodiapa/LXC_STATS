@@ -27,12 +27,14 @@ lxcdeploy contains scripts to setup a spark + hadoop cluster on LXC containers.
 
 Tested on ubuntu 14.04
  
-Requirements:
-Must have lxc : sudo apt-get install lxc
+######Requirements:
 
-Must have expect: sudo apt-get install expect
+*Must have lxc : sudo apt-get install lxc
 
-Must log in as root
+*Must have expect: sudo apt-get install expect
+
+*Must log in as root
+
 
 make-cluster.py is the wrapper sript which calls other scripts.
 
