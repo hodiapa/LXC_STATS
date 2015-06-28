@@ -226,7 +226,7 @@ CPU Utilization Vs CPU Power Consumption:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/CPU.png "CPU Utilization Vs CPU Power Consumption")
 
-Disk I/O vs Disk Power Consumption:
+Disk I/O vs Power Consumption:
 
 ![Alt text](https://github.com/pbprasad99/LXC_STATS/blob/master/docs/Disk.png "Disk I/O vs Disk Power Consumption")
 
