@@ -29,11 +29,11 @@ Tested on ubuntu 14.04
  
 ######Requirements:
 
-*Must have lxc : sudo apt-get install lxc
+* Must have lxc : sudo apt-get install lxc
 
-*Must have expect: sudo apt-get install expect
+* Must have expect: sudo apt-get install expect
 
-*Must log in as root
+* Must log in as root
 
 
 make-cluster.py is the wrapper sript which calls other scripts.
